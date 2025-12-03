@@ -1,1010 +1,430 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <title>Logan Poole — Projects & Apps</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Portfolio of apps, experiments, and side projects by Logan Poole — Pinged, Te Reo Time, TideMate NZ, ServiceTech and more." />
-
+    <meta charset="UTF-8">
+    <title>Logan Poole — Portfolio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         :root {
-            --bg: #050816;
-            --bg-alt: #0b1020;
-            --card: #111827;
-            --accent: #22c55e;
-            --accent-soft: rgba(34,197,94,0.15);
-            --accent2: #38bdf8;
-            --text: #e5e7eb;
-            --muted: #9ca3af;
-            --border: #1f2937;
-            --danger: #f97373;
-            --warning: #fbbf24;
-            --radius-lg: 18px;
-            --radius-sm: 999px;
-            --shadow-lg: 0 20px 45px rgba(0,0,0,0.55);
-            --shadow-sm: 0 12px 24px rgba(0,0,0,0.4);
-            --transition-fast: 0.18s ease-out;
-            --transition-med: 0.25s ease-out;
+            --bg: #0a0a0f;
+            --card: rgba(20, 20, 30, 0.6);
+            --accent: #10b981;
+            --accent2: #3b82f6;
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: rgba(148, 163, 184, 0.1);
         }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
+        
+        [data-theme="light"] {
+            --bg: #f8fafc;
+            --card: rgba(255, 255, 255, 0.8);
+            --text: #0f172a;
+            --text-muted: #475569;
+            --border: rgba(15, 23, 42, 0.1);
         }
-
+        
         body {
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            background: radial-gradient(circle at top, #111827 0, #020617 55%, #000 100%);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: var(--bg);
             color: var(--text);
-            min-height: 100vh;
             line-height: 1.6;
+            transition: all 0.3s;
         }
-
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .page {
-            max-width: 1120px;
-            margin: 0 auto;
-            padding: 20px 16px 64px;
-        }
-
-        /* HEADER / NAV */
-
-        header {
+        
+        nav {
             position: sticky;
             top: 0;
-            z-index: 20;
-            backdrop-filter: blur(14px);
-            background: radial-gradient(circle at top left, rgba(34,197,94,0.06), transparent 60%);
+            z-index: 100;
+            backdrop-filter: blur(20px);
+            background: rgba(10, 10, 15, 0.8);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
         }
-
-        .nav {
-            max-width: 1120px;
+        
+        [data-theme="light"] nav {
+            background: rgba(248, 250, 252, 0.8);
+        }
+        
+        .nav-content {
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 14px 16px 10px;
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            gap: 18px;
-        }
-
-        .nav-left {
-            display: flex;
             align-items: center;
-            gap: 10px;
         }
-
-        .avatar-circle {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: radial-gradient(circle at 30% 0, #22c55e, #18181b 70%);
-            border: 1px solid rgba(148,163,184,0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        
+        .logo {
+            font-size: 1.5rem;
             font-weight: 700;
-            letter-spacing: 0.04em;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-
-        .nav-title {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .nav-title span:first-child {
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            color: var(--muted);
-        }
-
-        .nav-title span:last-child {
-            font-size: 15px;
-            font-weight: 600;
-        }
-
+        
         .nav-links {
             display: flex;
-            gap: 16px;
-            font-size: 14px;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
         }
-
+        
         .nav-links a {
-            padding: 6px 12px;
-            border-radius: 999px;
-            color: var(--muted);
-            border: 1px solid transparent;
-            transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s;
         }
-
+        
         .nav-links a:hover {
             color: var(--text);
-            border-color: rgba(148,163,184,0.5);
-            background: rgba(15,23,42,0.9);
         }
-
-        /* HERO */
-
-        .hero {
-            padding: 48px 0 32px;
-            display: grid;
-            grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.6fr);
-            gap: 32px;
-            align-items: center;
-        }
-
-        .hero-kicker {
-            font-size: 13px;
-            text-transform: uppercase;
-            letter-spacing: 0.18em;
-            color: var(--accent2);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 10px;
-        }
-
-        .hero-kicker::before {
-            content: "";
-            width: 32px;
-            height: 1px;
-            border-radius: 999px;
-            background: linear-gradient(90deg, rgba(56,189,248,0.4), transparent);
-        }
-
-        .hero h1 {
-            font-size: clamp(32px, 5vw, 40px);
-            line-height: 1.1;
-            margin-bottom: 14px;
-        }
-
-        .hero h1 span {
-            background: linear-gradient(120deg, #a5b4fc, #22c55e, #22c55e);
-            -webkit-background-clip: text;
-            color: transparent;
-        }
-
-        .hero p {
-            font-size: 15px;
-            color: var(--muted);
-            max-width: 520px;
-            margin-bottom: 20px;
-        }
-
-        .hero-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 22px;
-        }
-
-        .pill {
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-            padding: 6px 10px;
-            border-radius: var(--radius-sm);
-            border: 1px solid rgba(148,163,184,0.4);
-            color: var(--muted);
-            background: rgba(15,23,42,0.8);
-        }
-
-        .pill--accent {
-            border-color: rgba(34,197,94,0.6);
-            background: var(--accent-soft);
-            color: #bbf7d0;
-        }
-
-        .hero-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .btn {
-            font-size: 14px;
-            padding: 9px 16px;
-            border-radius: var(--radius-sm);
-            border: 1px solid transparent;
-            cursor: pointer;
-            background: transparent;
+        
+        .theme-btn {
+            background: var(--card);
+            border: 1px solid var(--border);
             color: var(--text);
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            line-height: 1;
-            transition: background var(--transition-med), transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
         }
-
+        
+        .theme-btn:hover {
+            border-color: var(--accent);
+        }
+        
+        .hero {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #10b981, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+        
+        .buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
         .btn-primary {
-            background: linear-gradient(135deg, #22c55e, #16a34a);
-            box-shadow: var(--shadow-lg);
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            color: white;
         }
-
+        
         .btn-primary:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 26px 50px rgba(34,197,94,0.55);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
         }
-
-        .btn-ghost {
-            border-color: rgba(148,163,184,0.6);
-            background: rgba(15,23,42,0.8);
+        
+        .btn-secondary {
+            background: var(--card);
+            color: var(--text);
+            border: 1px solid var(--border);
         }
-
-        .btn-ghost:hover {
-            background: rgba(15,23,42,1);
+        
+        .section {
+            max-width: 1400px;
+            margin: 4rem auto;
+            padding: 0 2rem;
         }
-
-        .btn span.icon {
-            font-size: 16px;
+        
+        .section h2 {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 3rem;
         }
-
-        .hero-right {
-            justify-self: stretch;
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
         }
-
-        .hero-card {
-            border-radius: 22px;
-            background: radial-gradient(circle at top left, rgba(34,197,94,0.22), transparent 55%), #020617;
-            border: 1px solid rgba(148,163,184,0.4);
-            box-shadow: var(--shadow-lg);
-            padding: 18px 16px 16px;
+        
+        .card {
+            background: var(--card);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+        
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .card p {
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+        
+        .tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin: 1rem 0;
+        }
+        
+        .tag {
+            padding: 0.25rem 0.75rem;
+            background: rgba(148, 163, 184, 0.1);
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        
+        /* Website card specific styles */
+        .website-card {
             position: relative;
             overflow: hidden;
         }
-
-        .hero-card-header {
-            display: flex;
-            justify-content: space-between;
+        
+        .website-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(59, 130, 246, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .website-card:hover::before {
+            opacity: 1;
+        }
+        
+        .website-link {
+            display: inline-flex;
             align-items: center;
-            margin-bottom: 16px;
+            gap: 0.5rem;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 1rem;
+            transition: color 0.3s;
         }
-
-        .hero-card-title {
-            font-size: 13px;
-            text-transform: uppercase;
-            letter-spacing: 0.16em;
-            color: var(--muted);
+        
+        .website-link:hover {
+            color: var(--accent2);
         }
-
-        .hero-card-pill {
-            font-size: 11px;
-            padding: 4px 10px;
-            border-radius: 999px;
-            background: rgba(15,23,42,0.8);
-            border: 1px solid rgba(148,163,184,0.5);
-            color: var(--muted);
+        
+        .live-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.25rem 0.75rem;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 50px;
+            font-size: 0.75rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
         }
-
-        .timeline {
-            display: grid;
-            gap: 10px;
-            margin-bottom: 8px;
-        }
-
-        .timeline-item {
-            display: grid;
-            grid-template-columns: auto 1fr auto;
-            gap: 8px;
-            align-items: baseline;
-            font-size: 13px;
-        }
-
-        .timeline-status {
+        
+        .live-dot {
             width: 8px;
             height: 8px;
+            background: var(--accent);
             border-radius: 50%;
-            background: var(--accent);
-            box-shadow: 0 0 10px rgba(34,197,94,0.6);
+            animation: pulse 2s ease infinite;
         }
-
-        .timeline-status--inprogress {
-            background: var(--warning);
-            box-shadow: 0 0 10px rgba(251,191,36,0.6);
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
-
-        .timeline-status--idea {
-            background: #38bdf8;
-            box-shadow: 0 0 10px rgba(56,189,248,0.5);
-        }
-
-        .timeline-main {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .timeline-title {
-            font-weight: 500;
-        }
-
-        .timeline-sub {
-            font-size: 12px;
-            color: var(--muted);
-        }
-
-        .timeline-chip {
-            font-size: 11px;
-            padding: 3px 8px;
-            border-radius: 999px;
-            background: rgba(15,23,42,0.9);
-            color: var(--muted);
-            border: 1px solid rgba(148,163,184,0.45);
-        }
-
-        .hero-card-footer {
-            margin-top: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 11px;
-            color: var(--muted);
-        }
-
-        .hero-card-footer span strong {
-            color: #e5e7eb;
-        }
-
-        /* SECTION TITLES */
-
-        .section-header {
-            margin: 40px 0 18px;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: baseline;
-            justify-content: space-between;
-            gap: 10px;
-        }
-
-        .section-header h2 {
-            font-size: 20px;
-        }
-
-        .section-header p {
-            font-size: 13px;
-            color: var(--muted);
-        }
-
-        /* FILTER CHIPS */
-
-        .filters {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-        }
-
-        .filter-btn {
-            font-size: 12px;
-            padding: 5px 11px;
-            border-radius: 999px;
-            border: 1px solid rgba(148,163,184,0.55);
-            background: rgba(15,23,42,0.9);
-            color: var(--muted);
-            cursor: pointer;
-            transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
-        }
-
-        .filter-btn[data-active="true"] {
-            background: var(--accent-soft);
-            border-color: rgba(34,197,94,0.8);
-            color: #bbf7d0;
-            transform: translateY(-1px);
-        }
-
-        .filter-btn:hover {
-            border-color: rgba(148,163,184,0.85);
-        }
-
-        /* PROJECT GRID */
-
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 18px;
-        }
-
-        @media (max-width: 900px) {
-            .hero {
-                grid-template-columns: minmax(0, 1fr);
-            }
-            .hero-right {
-                order: -1;
-            }
-            .projects-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
-        }
-
-        @media (max-width: 640px) {
-            .nav-links {
-                display: none;
-            }
-            .projects-grid {
-                grid-template-columns: minmax(0, 1fr);
-            }
-            .hero {
-                padding-top: 32px;
-            }
-        }
-
-        .project-card {
-            border-radius: var(--radius-lg);
-            background: radial-gradient(circle at top left, rgba(56,189,248,0.16), transparent 60%), var(--card);
-            border: 1px solid var(--border);
-            padding: 14px 14px 12px;
-            box-shadow: var(--shadow-sm);
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-            transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast), background var(--transition-med);
-        }
-
-        .project-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.65);
-            border-color: rgba(148,163,184,0.9);
-            background: radial-gradient(circle at top left, rgba(34,197,94,0.22), transparent 60%), var(--card);
-        }
-
-        .project-status {
-            position: absolute;
-            top: 10px;
-            right: 12px;
-            font-size: 11px;
-            padding: 4px 9px;
-            border-radius: 999px;
-            background: rgba(15,23,42,0.85);
-            border: 1px solid rgba(148,163,184,0.7);
-            color: var(--muted);
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .status-dot {
-            width: 7px;
-            height: 7px;
-            border-radius: 50%;
-            background: var(--accent);
-        }
-
-        .status-live .status-dot {
-            background: var(--accent);
-        }
-
-        .status-progress .status-dot {
-            background: var(--warning);
-        }
-
-        .status-idea .status-dot {
-            background: var(--accent2);
-        }
-
-        .project-title {
-            font-size: 15px;
-            font-weight: 600;
-            padding-right: 80px;
-        }
-
-        .project-sub {
-            font-size: 13px;
-            color: var(--muted);
-        }
-
-        .project-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin-top: 4px;
-        }
-
-        .badge {
-            font-size: 11px;
-            padding: 3px 8px;
-            border-radius: 999px;
-            border: 1px solid rgba(148,163,184,0.55);
-            color: var(--muted);
-            background: rgba(15,23,42,0.9);
-        }
-
-        .badge-accent {
-            border-color: rgba(34,197,94,0.9);
-            color: #bbf7d0;
-        }
-
-        .project-links {
-            margin-top: 6px;
-            font-size: 12px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            color: var(--muted);
-        }
-
-        .project-links a {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            padding: 2px 0;
-            border-bottom: 1px dashed transparent;
-        }
-
-        .project-links a:hover {
-            color: var(--accent2);
-            border-bottom-color: rgba(56,189,248,0.7);
-        }
-
-        /* ABOUT + CONTACT */
-
-        .about {
-            display: grid;
-            grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.1fr);
-            gap: 24px;
-            margin-top: 10px;
-        }
-
-        @media (max-width: 900px) {
-            .about {
-                grid-template-columns: minmax(0, 1fr);
-            }
-        }
-
-        .about-block {
-            border-radius: var(--radius-lg);
-            background: var(--bg-alt);
-            border: 1px solid var(--border);
-            padding: 16px 16px 14px;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .about-block h3 {
-            font-size: 15px;
-            margin-bottom: 8px;
-        }
-
-        .about-block p {
-            font-size: 13px;
-            color: var(--muted);
-            margin-bottom: 10px;
-        }
-
-        .about-list {
-            list-style: none;
-            font-size: 13px;
-            color: var(--muted);
-        }
-
-        .about-list li {
-            margin-bottom: 5px;
-            display: flex;
-            align-items: baseline;
-            gap: 8px;
-        }
-
-        .about-list li::before {
-            content: "•";
-            color: var(--accent);
-            font-size: 16px;
-        }
-
-        .contact-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 8px;
-            font-size: 13px;
-        }
-
-        .contact-pill {
-            border-radius: 999px;
-            padding: 6px 11px;
-            border: 1px solid rgba(148,163,184,0.6);
-            background: rgba(15,23,42,0.9);
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-
+        
         footer {
-            margin-top: 32px;
-            padding-top: 16px;
-            border-top: 1px solid #111827;
-            font-size: 11px;
-            color: var(--muted);
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            gap: 8px;
+            text-align: center;
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
         }
-
-        footer a {
-            color: var(--muted);
-        }
-
-        footer a:hover {
-            color: var(--accent2);
+        
+        @media (max-width: 768px) {
+            .nav-links { gap: 1rem; font-size: 0.9rem; }
+            .hero { padding: 4rem 2rem 2rem; }
         }
     </style>
 </head>
 <body>
-    <header>
-        <nav class="nav">
-            <div class="nav-left">
-                <div class="avatar-circle">LP</div>
-                <div class="nav-title">
-                    <span>Projects</span>
-                    <span>Logan Poole — Rotorua, Aotearoa NZ</span>
+    <nav>
+        <div class="nav-content">
+            <div class="logo">LP</div>
+            <ul class="nav-links">
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#websites">Websites</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><button class="theme-btn" onclick="toggleTheme()">🌓 Theme</button></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <h1>Kia ora, I'm <span class="gradient-text">Logan Poole</span></h1>
+        <p>Developer & builder crafting apps and experiences that actually matter. From te reo Māori tools to social navigation — I build stuff people want to use.</p>
+        <div class="buttons">
+            <a href="#projects" class="btn btn-primary">✨ View my work</a>
+            <a href="#contact" class="btn btn-secondary">👋 Get in touch</a>
+        </div>
+    </section>
+
+    <section class="section" id="projects">
+        <h2>Projects</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Pinged</h3>
+                <p>Real-time location sharing with mates, AR beacons, live chat and seat-finding for events.</p>
+                <div class="tags">
+                    <span class="tag">Kotlin</span>
+                    <span class="tag">Mapbox</span>
+                    <span class="tag">Supabase</span>
                 </div>
             </div>
-            <div class="nav-links">
-                <a href="#projects">Projects</a>
-                <a href="#about">About</a>
-                <a href="#contact">Contact</a>
-            </div>
-        </nav>
-    </header>
-
-    <main class="page">
-        <!-- HERO -->
-        <section class="hero" id="top">
-            <div>
-                <div class="hero-kicker">Apps · Experiments · Side Projects</div>
-                <h1>Kia ora, I’m <span>Logan</span></h1>
-                <h1>I design and build useful stuff.</h1>
-                <p>
-                    Mobile apps, widgets, AR ideas and SaaS tools built around real needs from
-                    te reo Māori time-telling and fishing tools to social navigation and school systems.
-                </p>
-
-                <div class="hero-tags">
-                    <span class="pill pill--accent">Android · Flutter · Web</span>
-                    <span class="pill">Supabase · Mapbox · Firebase</span>
-                    <span class="pill">Te Ao Māori · Education</span>
-                </div>
-
-                <div class="hero-buttons">
-                    <a href="#projects" class="btn btn-primary">
-                        <span class="icon">📂</span>
-                        <span>View my projects</span>
-                    </a>
-                    <a href="#contact" class="btn btn-ghost">
-                        <span class="icon">✉️</span>
-                        <span>Say kia ora</span>
-                    </a>
+            
+            <div class="card">
+                <h3>Te Reo Time</h3>
+                <p>Māori time-telling widget with maramataka and whakataukī. A passion project for te reo Māori.</p>
+                <div class="tags">
+                    <span class="tag">Android</span>
+                    <span class="tag">Widgets</span>
                 </div>
             </div>
-
-            <div class="hero-right">
-                <div class="hero-card" aria-label="Project timeline">
-                    <div class="hero-card-header">
-                        <span class="hero-card-title">Current focus</span>
-                        <span class="hero-card-pill">Live + In Progress</span>
-                    </div>
-
-                    <div class="timeline">
-                        <div class="timeline-item">
-                            <div class="timeline-status timeline-status--inprogress"></div>
-                            <div class="timeline-main">
-                                <span class="timeline-title">Pinged</span>
-                                <span class="timeline-sub">
-                                    Real-time social navigation, AR beacons & chat (Android + Supabase).
-                                </span>
-                            </div>
-                            <span class="timeline-chip">In progress</span>
-                        </div>
-
-                        <div class="timeline-item">
-                            <div class="timeline-status"></div>
-                            <div class="timeline-main">
-                                <span class="timeline-title">Te Reo Time</span>
-                                <span class="timeline-sub">
-                                    Māori time-telling, maramataka & whakataukī widget/watch experience.
-                                </span>
-                            </div>
-                            <span class="timeline-chip">Live build</span>
-                        </div>
-
-                        <div class="timeline-item">
-                            <div class="timeline-status timeline-status--inprogress"></div>
-                            <div class="timeline-main">
-                                <span class="timeline-title">TideMate NZ</span>
-                                <span class="timeline-sub">
-                                    Offline-friendly fishing companion with tides, spots & catch logs.
-                                </span>
-                            </div>
-                            <span class="timeline-chip">Prototype</span>
-                        </div>
-
-                        <div class="timeline-item">
-                            <div class="timeline-status timeline-status--idea"></div>
-                            <div class="timeline-main">
-                                <span class="timeline-title">ServiceTech & School System</span>
-                                <span class="timeline-sub">
-                                    SaaS ideas for field services & education management at NZ scale.
-                                </span>
-                            </div>
-                            <span class="timeline-chip">Concepts</span>
-                        </div>
-                    </div>
-
-                    <div class="hero-card-footer">
-                        <span>~<strong>1000+ hrs</strong> of dev & design so far</span>
-                        <span>Always learning · Always growing</span>
-                    </div>
+            
+            <div class="card">
+                <h3>TideMate NZ</h3>
+                <p>Offline-first fishing companion with tides, spots, catches and regs for NZ.</p>
+                <div class="tags">
+                    <span class="tag">Flutter</span>
+                    <span class="tag">Offline</span>
                 </div>
             </div>
-        </section>
-
-        <!-- PROJECTS -->
-        <section id="projects">
-            <div class="section-header">
-                <div>
-                    <h2>Projects</h2>
-                    <p>All the things I’ve built, am building, or am scheming up next.</p>
-                </div>
-                <div class="filters" aria-label="Filter projects by status">
-                    <button class="filter-btn" data-filter="all" data-active="true">All</button>
-                    <button class="filter-btn" data-filter="live">Live</button>
-                    <button class="filter-btn" data-filter="in-progress">In progress</button>
-                    <button class="filter-btn" data-filter="idea">Future ideas</button>
+            
+            <div class="card">
+                <h3>ServiceTech NZ</h3>
+                <p>Field service SaaS for asset tracking, workflows and reporting.</p>
+                <div class="tags">
+                    <span class="tag">SaaS</span>
+                    <span class="tag">Web</span>
                 </div>
             </div>
-
-            <div class="projects-grid" id="projectGrid">
-                <!-- Pinged -->
-                <article class="project-card"
-                         data-status="in-progress"
-                         data-type="mobile">
-                    <div class="project-status status-progress">
-                        <span class="status-dot"></span>
-                        <span>In progress</span>
-                    </div>
-                    <h3 class="project-title">Pinged: Social Navigation & AR Beacons</h3>
-                    <p class="project-sub">
-                        Real-time map of your mates, AR beacons you can drop at locations, live chat
-                        and seat-finding for events. Built in Kotlin with Mapbox & Supabase.
-                    </p>
-                    <div class="project-tags">
-                        <span class="badge badge-accent">Android (Kotlin)</span>
-                        <span class="badge">Supabase</span>
-                        <span class="badge">Mapbox v11</span>
-                        <span class="badge">AR concepts</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="#" target="_blank" rel="noreferrer">
-                            📱 View app screenshots
-                        </a>
-                        <a href="#" target="_blank" rel="noreferrer">
-                            💻 GitHub repo (private / WIP)
-                        </a>
-                    </div>
-                </article>
-
-                <!-- Te Reo Time -->
-                <article class="project-card"
-                         data-status="live"
-                         data-type="mobile">
-                    <div class="project-status status-live">
-                        <span class="status-dot"></span>
-                        <span>Live / Testing</span>
-                    </div>
-                    <h3 class="project-title">Te Reo Time: Māori Time & Maramataka</h3>
-                    <p class="project-sub">
-                        Android widget/watch experience that shows Māori time, moon phases,
-                        whakataukī and seasonal backgrounds designed as a passion project to support te reo Māori.
-                    </p>
-                    <div class="project-tags">
-                        <span class="badge badge-accent">Android</span>
-                        <span class="badge">Widgets</span>
-                        <span class="badge">Te Reo Māori</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="#" target="_blank" rel="noreferrer">
-                            📝 Project page / screenshots
-                        </a>
-                        <a href="#" target="_blank" rel="noreferrer">
-                            🛒 Google Play (testing track)
-                        </a>
-                    </div>
-                </article>
-
-                <!-- TideMate NZ -->
-                <article class="project-card"
-                         data-status="in-progress"
-                         data-type="mobile">
-                    <div class="project-status status-progress">
-                        <span class="status-dot"></span>
-                        <span>Prototype</span>
-                    </div>
-                    <h3 class="project-title">TideMate NZ: Offline Fishing Companion</h3>
-                    <p class="project-sub">
-                        Flutter app focused on 100% offline capability: tide data, spots, catches,
-                        regs, knots and weather snapshots for fishing around Aotearoa.
-                    </p>
-                    <div class="project-tags">
-                        <span class="badge badge-accent">Flutter</span>
-                        <span class="badge">SQLite</span>
-                        <span class="badge">Offline-first</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="#" target="_blank" rel="noreferrer">
-                            🌊 UI concepts & roadmap
-                        </a>
-                    </div>
-                </article>
-
-                <!-- ServiceTech NZ -->
-                <article class="project-card"
-                         data-status="idea"
-                         data-type="web">
-                    <div class="project-status status-idea">
-                        <span class="status-dot"></span>
-                        <span>Concept</span>
-                    </div>
-                    <h3 class="project-title">ServiceTechApp NZ: Field Service SaaS</h3>
-                    <p class="project-sub">
-                        Multi-region SaaS concept for asset tracking, technicians, workflows and
-                        reporting across NZ service companies. Built as a realistic data + UI playground.
-                    </p>
-                    <div class="project-tags">
-                        <span class="badge badge-accent">Web app</span>
-                        <span class="badge">MongoDB</span>
-                        <span class="badge">Admin dashboards</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="#" target="_blank" rel="noreferrer">
-                            📊 Admin & analytics mockups
-                        </a>
-                    </div>
-                </article>
-
-                <!-- Education & School Management -->
-                <article class="project-card"
-                         data-status="idea"
-                         data-type="web">
-                    <div class="project-status status-idea">
-                        <span class="status-dot"></span>
-                        <span>Future</span>
-                    </div>
-                    <h3 class="project-title">Education & School Management Intranet</h3>
-                    <p class="project-sub">
-                        Unified system idea for primary to tertiary: timetables, attendance, parent
-                        access, student dashboards and communication all in one interface. 
-                        Teach the generations coming to use tools for good use, instead of letting them doom scroll for corporation profit.
-                        
-                    </p>
-                    <div class="project-tags">
-                        <span class="badge badge-accent">SaaS concept</span>
-                        <span class="badge">Multi-role dashboards</span>
-                        <span class="badge">NZ schools</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="#" target="_blank" rel="noreferrer">
-                            🧠 Concept notes & planning
-                        </a>
-                    </div>
-                </article>
-
-                <!-- New Ideas / Experiments -->
-                <article class="project-card"
-                         data-status="idea"
-                         data-type="mixed">
-                    <div class="project-status status-idea">
-                        <span class="status-dot"></span>
-                        <span>Idea bucket</span>
-                    </div>
-                    <h3 class="project-title">New Ideas: AR Beacons, Measuring & More</h3>
-                    <p class="project-sub">
-                        A growing collection of experiments: AR measuring tools, geo-pinned beacons,
-                        Roblox worlds, and whatever else seems fun or useful at the time.
-                    </p>
-                    <div class="project-tags">
-                        <span class="badge badge-accent">AR</span>
-                        <span class="badge">Game dev</span>
-                        <span class="badge">R&D</span>
-                    </div>
-                    <div class="project-links">
-                        <a href="#" target="_blank" rel="noreferrer">
-                            ✏️ Idea log & sketches
-                        </a>
-                    </div>
-                </article>
-            </div>
-        </section>
-
-        <!-- ABOUT / CONTACT -->
-        <section id="about">
-            <div class="section-header">
-                <div>
-                    <h2>About</h2>
-                    <p>Some context on who I am and what I care about.</p>
+            
+            <div class="card">
+                <h3>Education Platform</h3>
+                <p>School management system for NZ schools - timetables, attendance, parent access.</p>
+                <div class="tags">
+                    <span class="tag">SaaS</span>
+                    <span class="tag">Education</span>
                 </div>
             </div>
-
-            <div class="about">
-                <div class="about-block">
-                    <h3>Ko wai au · Who I am</h3>
-                    <p>
-                        I’m Logan Poole from Rotorua, Aotearoa New Zealand. A developer who enjoys
-                        building practical tools with a strong focus on user experience, education and te ao Māori.
-                    </p>
-                    <p>
-                        I work across Android, Flutter and web, using platforms like Supabase, Mapbox and Firebase
-                        to make real things, for real purpose.
-                    </p>
-                    <ul class="about-list">
-                        <li>Keen on projects that actually get used in daily life.</li>
-                        <li>Mix of solo work, study projects and experiments.</li>
-                        <li>Always up for learning new tech if it solves a real problem.</li>
-                    </ul>
-                </div>
-
-                <div class="about-block" id="contact">
-                    <h3>Contact & Links</h3>
-                    <p>
-                        If you’d like to test something, collaborate, or talk about any of these projects,
-                        flick me a message.
-                    </p>
-                    <div class="contact-row">
-    <a href="mailto:hconmem@gmail.com" class="contact-pill">
-        <span>✉️</span>
-        <span>Email me</span>
-    </a>
-    <a href="https://github.com/logan-poole" class="contact-pill" target="_blank" rel="noreferrer">
-        <span>🐙</span>
-        <span>GitHub profile</span>
-    </a>
-    <a href="https://logan-poole.github.io/LoganPoole/" class="contact-pill" target="_blank" rel="noreferrer">
-        <span>🌐</span>
-        <span>Personal site / CV</span>
-    </a>
-</div>
-
-                    <p style="margin-top:10px;font-size:12px;color:var(--muted);">
-                        You’re probably seeing this page because I sent it to you — thanks for taking
-                        the time to look through my work.
-                    </p>
+            
+            <div class="card">
+                <h3>Experiments Lab</h3>
+                <p>AR measuring tools, geo-pinned beacons, Roblox worlds and whatever else seems fun.</p>
+                <div class="tags">
+                    <span class="tag">AR</span>
+                    <span class="tag">3D</span>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <footer>
-            <span>© <span id="year"></span> Logan Poole. Built with HTML, CSS with some Trial and Error </span>
-        </footer>
-    </main>
+    <section class="section" id="websites">
+        <h2>Published Websites</h2>
+        <div class="grid">
+            <div class="card website-card">
+                <div class="live-badge">
+                    <span class="live-dot"></span>
+                    Live
+                </div>
+                <h3>Flexible Builders</h3>
+                <p>Professional building company website built for my best mate's business. Clean, modern design showcasing their services and projects.</p>
+                <div class="tags">
+                    <span class="tag">HTML</span>
+                    <span class="tag">CSS</span>
+                    <span class="tag">JavaScript</span>
+                    <span class="tag">Responsive</span>
+                </div>
+                <a href="https://www.flexiblebuilders.co.nz" target="_blank" rel="noopener noreferrer" class="website-link">
+                    🌐 Visit site →
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="about">
+        <h2>About Me</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>🚀 My Story</h3>
+                <p>I'm Logan Poole from Rotorua, Aotearoa NZ. Developer who enjoys building practical tools with a strong focus on user experience, education and te ao Māori.</p>
+            </div>
+            <div class="card" id="contact">
+                <h3>📬 Get In Touch</h3>
+                <p>Keen to test something, collaborate, or just have a yarn?</p>
+                <p><a href="mailto:hconmem@gmail.com" style="color: var(--accent);">hconmem@gmail.com</a></p>
+                <p><a href="https://github.com/logan-poole" style="color: var(--accent);" target="_blank">GitHub</a></p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2024 Logan Poole. Built with HTML & CSS.</p>
+    </footer>
 
     <script>
-        // Year in footer
-        document.getElementById("year").textContent = new Date().getFullYear().toString();
-
-        // Simple project filter logic
-        const filterButtons = document.querySelectorAll(".filter-btn");
-        const projectCards = document.querySelectorAll(".project-card");
-
-        filterButtons.forEach(btn => {
-            btn.addEventListener("click", () => {
-                const filter = btn.getAttribute("data-filter");
-
-                filterButtons.forEach(b => b.setAttribute("data-active", "false"));
-                btn.setAttribute("data-active", "true");
-
-                projectCards.forEach(card => {
-                    const status = card.getAttribute("data-status");
-                    if (filter === "all" || status === filter) {
-                        card.style.display = "";
-                    } else {
-                        card.style.display = "none";
-                    }
-                });
-            });
-        });
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+        }
+        
+        // Load saved theme
+        const saved = localStorage.getItem('theme');
+        if (saved) {
+            document.documentElement.setAttribute('data-theme', saved);
+        }
     </script>
 </body>
 </html>
